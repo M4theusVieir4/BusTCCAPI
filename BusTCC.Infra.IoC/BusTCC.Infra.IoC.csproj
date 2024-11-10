@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.9.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.9.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BusTcc.Application\BusTCC.Application.csproj" />
     <ProjectReference Include="..\BusTCC.Domain\BusTCC.Domain.csproj" />
     <ProjectReference Include="..\BusTcc.Infra.Data\BusTCC.Infra.Data.csproj" />
