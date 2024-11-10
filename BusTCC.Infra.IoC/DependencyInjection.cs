@@ -1,4 +1,9 @@
-﻿using BusTCC.Domain.Infra.Data;
+﻿using BusTCC.Application.Interfaces;
+using BusTCC.Application.Mappings;
+using BusTCC.Application.Services;
+using BusTCC.Domain.Infra.Data;
+using BusTCC.Domain.Interfaces;
+using BusTCC.Infra.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +25,17 @@ namespace BusTCC.Infra.IoC
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
             });
+
+            services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
+
+            // Repositories
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IPreferenciaRepository, PreferenciaRepository>();
+
+            // Services
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IPreferenciaService, PreferenciaService>();
+
 
             return services;
         }
