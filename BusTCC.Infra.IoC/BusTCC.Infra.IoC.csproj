@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusTcc.Application\BusTCC.Application.csproj" />
+    <ProjectReference Include="..\BusTCC.Domain\BusTCC.Domain.csproj" />
+    <ProjectReference Include="..\BusTcc.Infra.Data\BusTCC.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
