@@ -23,18 +23,13 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
                 .HasColumnName("ID_Usuario");
             builder.Property(e => e.Email)
                 .HasMaxLength(30)
-                .IsUnicode(false);
-            builder.Property(e => e.IdPreferencia).HasColumnName("ID_Preferencia");
+                .IsUnicode(false);            
             builder.Property(e => e.NomeCompleto)
                 .HasMaxLength(60)
                 .IsUnicode(false)
                 .HasColumnName("Nome_Completo");
             builder.Property(e => e.NumeroCelular).HasColumnName("Numero_Celular");
-
-            builder.HasOne(d => d.IdPreferenciaNavigation).WithMany(p => p.Usuarios)
-                .HasForeignKey(d => d.IdPreferencia)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Usuario__ID_Pref__619B8048");            
+        
         }
     }
 }

@@ -38,7 +38,7 @@ namespace BusTCC.Application.Services
         public async Task<RotaDTO> Incluir(RotaDTO rotaDTO)
         {
             var rota = _mapper.Map<Rota>(rotaDTO);
-            var rotaIncluido = await _rotaRepository.Alterar(rota);
+            var rotaIncluido = await _rotaRepository.Incluir(rota);
             return _mapper.Map<RotaDTO>(rotaIncluido);
         }
 

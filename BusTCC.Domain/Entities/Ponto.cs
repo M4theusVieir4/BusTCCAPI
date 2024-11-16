@@ -21,6 +21,8 @@ public partial class Ponto
 
     public virtual ICollection<Rota> Rota { get; set; } = new List<Rota>();
 
+    protected Ponto() { }
+
     public Ponto(int idPonto, int idRotas, string ruaAvenida, string bairro,
         string estado, Rota idRotasNavigation, ICollection<Rota> rota)
     {

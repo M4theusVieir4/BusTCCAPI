@@ -23,6 +23,7 @@ public partial class Comunicacao
 
     public virtual ICollection<Onibus> Onibus { get; set; } = new List<Onibus>();
 
+    protected Comunicacao() { }
     public Comunicacao(int idDados, int idEquipamento, int idCatraca, DateOnly data, ICollection<Equipamento> equipamentos,
         Catraca idCatracaNavigation, Equipamento idEquipamentoNavigation, ICollection<Onibus> onibus)
     {

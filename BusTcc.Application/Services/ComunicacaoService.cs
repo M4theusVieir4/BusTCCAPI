@@ -38,7 +38,7 @@ namespace BusTCC.Application.Services
         public async Task<ComunicacaoDTO> Incluir(ComunicacaoDTO comunicacaoDTO)
         {
             var comunicacao = _mapper.Map<Comunicacao>(comunicacaoDTO);
-            var comunicacaoIncluido = await _comunicacaoRepository.Alterar(comunicacao);
+            var comunicacaoIncluido = await _comunicacaoRepository.Incluir(comunicacao);
             return _mapper.Map<ComunicacaoDTO>(comunicacaoIncluido);
         }
 

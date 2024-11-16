@@ -12,26 +12,31 @@ public partial class Preferencia
     public bool Deficiencia { get; private set; }
 
     public bool Notificacao { get; private set; }
+    public int IdUsuario { get; private set; }
+    public virtual Usuario IdUsuarioNavigation { get; set; } = null!;
 
-    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
+    protected Preferencia() { }
 
-    public Preferencia(int idPreferencia, bool deficiencia, bool notificacao, ICollection<Usuario> usuarios)
+
+    public Preferencia(int idPreferencia, bool deficiencia, bool notificacao, int idUsuario, Usuario idUsuarioNavigation)
     {
         DomainExceptionValidation.When(idPreferencia < 0, "O id da preferência do usuário deve ser positivo");
         IdPreferencia = idPreferencia;
 
-        ValidateDomain(deficiencia, notificacao, usuarios);        
+        ValidateDomain(deficiencia, notificacao, idUsuario, idUsuarioNavigation);        
     }
 
-    public void Update (bool deficiencia, bool notificacao, ICollection<Usuario> usuarios)
-    {
-        ValidateDomain(deficiencia, notificacao, usuarios);
+    public void Update (bool deficiencia, bool notificacao, int idUsuario, Usuario idUsuarioNavigation)
+    {        
+        ValidateDomain(deficiencia, notificacao, idUsuario, idUsuarioNavigation);
     }
 
-    public void ValidateDomain(bool deficiencia, bool notificacao, ICollection<Usuario> usuarios)
+    public void ValidateDomain(bool deficiencia, bool notificacao, int idUsuario, Usuario idUsuarioNavigation)
     {
+        DomainExceptionValidation.When(idUsuario < 0, "O id do usuário deve ser positivo");
         Deficiencia = deficiencia;
         Notificacao = notificacao;
-        Usuarios = usuarios;
+        IdUsuario = idUsuario;
+        IdUsuarioNavigation = idUsuarioNavigation;
     }
 }

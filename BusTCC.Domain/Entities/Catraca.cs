@@ -21,6 +21,8 @@ public partial class Catraca
 
     public virtual Equipamento? IdEquipamentoNavigation { get; set; }
 
+    protected Catraca() { }
+
     public Catraca(int idCatraca, int? idEquipamento, string? local, int? quantidadeEntrada,
         int? quantidadeSaida, ICollection<Comunicacao> comunicacaos,
         Equipamento? idEquipamentoNavigation)

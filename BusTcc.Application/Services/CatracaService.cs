@@ -38,7 +38,7 @@ namespace BusTCC.Application.Services
         public async Task<CatracaDTO> Incluir(CatracaDTO catracaDTO)
         {
             var catraca = _mapper.Map<Catraca>(catracaDTO);
-            var catracaIncluido = await _catracaRepository.Alterar(catraca);
+            var catracaIncluido = await _catracaRepository.Incluir(catraca);
             return _mapper.Map<CatracaDTO>(catracaIncluido);
         }
 

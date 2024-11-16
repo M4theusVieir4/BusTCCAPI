@@ -1,6 +1,7 @@
 ﻿using BusTCC.Domain.Entities;
 using BusTCC.Domain.Infra.Data;
 using BusTCC.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
@@ -25,24 +26,34 @@ namespace BusTCC.Infra.Data.Repositories
             return usuario;
         }
 
-        public Task<Usuario> Excluir(int id)
+        public async Task<Usuario?> Excluir(int id)
         {
-            throw new NotImplementedException();
+            var usuario = await _context.Usuario.FindAsync(id);
+            if(usuario != null)
+            {
+                _context.Usuario.Remove(usuario);
+                await _context.SaveChangesAsync();
+                return usuario;
+            }
+
+            return null;
         }
 
-        public Task<Usuario> Incluir(Usuario usuario)
+        public async Task<Usuario> Incluir(Usuario usuario)
         {
-            throw new NotImplementedException();
+            _context.Usuario.Add(usuario);
+            await _context.SaveChangesAsync();
+            return usuario;
         }
 
-        public Task<Usuario> SelecionarAsync(int id)
+        public async Task<Usuario> SelecionarAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Usuario.AsNoTracking().FirstOrDefaultAsync(x => x.IdUsuario == id);
         }
 
-        public Task<IEnumerable<Usuario>> SelecionarTodosAsync()
+        public async Task<IEnumerable<Usuario>> SelecionarTodosAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Usuario.ToListAsync();
         }
     }
 }

@@ -38,7 +38,7 @@ namespace BusTCC.Application.Services
         public async Task<EquipamentoDTO> Incluir(EquipamentoDTO equipamentoDTO)
         {
             var equipamento = _mapper.Map<Equipamento>(equipamentoDTO);
-            var equipamentoIncluido = await _equipamentoRepository.Alterar(equipamento);
+            var equipamentoIncluido = await _equipamentoRepository.Incluir(equipamento);
             return _mapper.Map<EquipamentoDTO>(equipamentoIncluido);
         }
 

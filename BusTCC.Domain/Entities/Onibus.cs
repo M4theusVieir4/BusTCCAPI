@@ -33,6 +33,7 @@ public partial class Onibus
 
     public virtual ICollection<Rota> Rota { get; set; } = new List<Rota>();
 
+    protected Onibus() { }
     public Onibus(int idOnibus, int idDados, int idRotas, string modelo, 
         string placa, int anoFabricacao, decimal taxaOnibus, decimal latitude,
         decimal longitude, Comunicacao idDadosNavigation, Rota idRotasNavigation, ICollection<Rota> rota)

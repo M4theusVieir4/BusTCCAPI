@@ -10,10 +10,7 @@ namespace BusTCC.Application.DTOs
     public class UsuarioDTO
     {
         [Required(ErrorMessage = "O ID do usuário é obrigatório.")]
-        public int IdUsuario { get; set; }
-
-        [Required(ErrorMessage = "O ID da preferência é obrigatório.")]
-        public int IdPreferencia { get; set; }
+        public int IdUsuario { get; set; }                
 
         [Required(ErrorMessage = "O nome completo é obrigatório.")]
         [StringLength(60, ErrorMessage = "O nome completo deve ter no máximo 60 caracteres.")]

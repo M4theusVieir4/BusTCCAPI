@@ -38,7 +38,7 @@ namespace BusTCC.Application.Services
         public async Task<UsuarioDTO> Incluir(UsuarioDTO usuarioDTO)
         {
             var usuario = _mapper.Map<Usuario>(usuarioDTO);
-            var usuarioIncluido = await _usuarioRepository.Alterar(usuario);
+            var usuarioIncluido = await _usuarioRepository.Incluir(usuario);
             return _mapper.Map<UsuarioDTO>(usuarioIncluido);
         }
 

@@ -25,6 +25,7 @@ public partial class Equipamento
 
     public virtual Comunicacao IdDadosNavigation { get; set; } = null!;
 
+    protected Equipamento() { }
     public Equipamento(int idEquipamento, int idDados, string numeroSerie, string modelo,
         decimal latitude, decimal longitude, ICollection<Catraca> catracas,
         ICollection<Comunicacao> comunicacaos, Comunicacao idDadosNavigation)

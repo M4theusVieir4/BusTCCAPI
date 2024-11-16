@@ -16,15 +16,15 @@ public partial class ApplicationDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Catraca> Catracas { get; set; }
+    public virtual DbSet<Catraca> Catraca { get; set; }
 
-    public virtual DbSet<Comunicacao> Comunicacaos { get; set; }
+    public virtual DbSet<Comunicacao> Comunicacao { get; set; }
 
-    public virtual DbSet<Equipamento> Equipamentos { get; set; }
+    public virtual DbSet<Equipamento> Equipamento { get; set; }
 
     public virtual DbSet<Onibus> Onibus { get; set; }
 
-    public virtual DbSet<Ponto> Pontos { get; set; }
+    public virtual DbSet<Ponto> Ponto { get; set; }
 
     public virtual DbSet<Preferencia> Preferencia { get; set; }
 

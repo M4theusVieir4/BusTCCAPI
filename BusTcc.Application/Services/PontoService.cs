@@ -38,7 +38,7 @@ namespace BusTCC.Application.Services
         public async Task<PontoDTO> Incluir(PontoDTO pontoDTO)
         {
             var ponto = _mapper.Map<Ponto>(pontoDTO);
-            var pontoIncluido = await _pontoRepository.Alterar(ponto);
+            var pontoIncluido = await _pontoRepository.Incluir(ponto);
             return _mapper.Map<PontoDTO>(pontoIncluido);
         }
 

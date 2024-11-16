@@ -1,6 +1,7 @@
 ﻿using BusTCC.Domain.Entities;
 using BusTCC.Domain.Infra.Data;
 using BusTCC.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,31 +18,41 @@ namespace BusTCC.Infra.Data.Repositories
         {
             _context = context;
         }
-        public async Task<Preferencia> Alterar(Preferencia usuario)
+        public async Task<Preferencia> Alterar(Preferencia preferencia)
         {
-            _context.Preferencia.Update(usuario);
+            _context.Preferencia.Update(preferencia);
             await _context.SaveChangesAsync();
-            return usuario;
+            return preferencia;
         }
 
-        public Task<Preferencia> Excluir(int id)
+        public async Task<Preferencia> Excluir(int id)
         {
-            throw new NotImplementedException();
+            var preferencia = await _context.Preferencia.FindAsync(id);
+            if (preferencia != null)
+            {
+                _context.Preferencia.Remove(preferencia);
+                await _context.SaveChangesAsync();
+                return preferencia;
+            }
+
+            return null;
         }
 
-        public Task<Preferencia> Incluir(Preferencia usuario)
+        public async Task<Preferencia> Incluir(Preferencia preferencia)
         {
-            throw new NotImplementedException();
+            _context.Preferencia.Add(preferencia);
+            await _context.SaveChangesAsync();
+            return preferencia;
         }
 
-        public Task<Preferencia> SelecionarAsync(int id)
+        public async Task<Preferencia> SelecionarAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Preferencia.AsNoTracking().FirstOrDefaultAsync(x => x.IdPreferencia == id);
         }
 
-        public Task<IEnumerable<Preferencia>> SelecionarTodosAsync()
+        public async Task<IEnumerable<Preferencia>> SelecionarTodosAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Preferencia.ToListAsync();
         }
     }
 }

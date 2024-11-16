@@ -22,7 +22,12 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
             builder.Property(e => e.Deficiencia)
                 .HasColumnName("Deficiencia");
             builder.Property(e => e.Notificacao)
-                .HasColumnName("Notificacao");            
+                .HasColumnName("Notificacao");
+            builder.Property(e => e.IdUsuario).HasColumnName("ID_Usuario");
+            builder.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Preferencias)
+                .HasForeignKey(d => d.IdUsuario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Preferencia_Usuario");
         }
     }
 }

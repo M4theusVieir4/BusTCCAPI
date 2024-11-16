@@ -38,7 +38,7 @@ namespace BusTCC.Application.Services
         public async Task<OnibusDTO> Incluir(OnibusDTO onibusDTO)
         {
             var onibus = _mapper.Map<Onibus>(onibusDTO);
-            var onibusIncluido = await _onibusRepository.Alterar(onibus);
+            var onibusIncluido = await _onibusRepository.Incluir(onibus);
             return _mapper.Map<OnibusDTO>(onibusIncluido);
         }
 

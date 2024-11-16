@@ -38,7 +38,7 @@ namespace BusTCC.Application.Services
         public async Task<PreferenciaDTO> Incluir(PreferenciaDTO preferenciaDTO)
         {
             var preferencia = _mapper.Map<Preferencia>(preferenciaDTO);
-            var preferenciaIncluido = await _preferenciaRepository.Alterar(preferencia);
+            var preferenciaIncluido = await _preferenciaRepository.Incluir(preferencia);
             return _mapper.Map<PreferenciaDTO>(preferenciaIncluido);
         }
 

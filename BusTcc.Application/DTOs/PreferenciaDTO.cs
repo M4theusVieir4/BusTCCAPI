@@ -11,6 +11,8 @@ namespace BusTCC.Application.DTOs
     {
         [Required(ErrorMessage = "O ID da preferência é obrigatório.")]
         public int IdPreferencia { get; set; }
+        [Required(ErrorMessage = "O ID do usuário é obrigatório.")]
+        public int IdUsuario { get; set; }
 
         [Required(ErrorMessage = "A preferência de deficiência é obrigatória.")]
         public bool Deficiencia { get; set; }
