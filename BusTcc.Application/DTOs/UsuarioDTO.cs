@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,5 +25,8 @@ namespace BusTCC.Application.DTOs
         [StringLength(30, ErrorMessage = "O e-mail deve ter no máximo 30 caracteres.")]
         [EmailAddress(ErrorMessage = "O e-mail deve ter um formato válido.")]
         public string Email { get; set; } = string.Empty;
+
+        [NotMapped]
+        public string Password { get; set; }
     }
 }

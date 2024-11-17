@@ -15,6 +15,9 @@ public partial class Usuario
     public string Email { get; private set; } = null!;    
     public virtual ICollection<Preferencia> Preferencias { get; set; } = new List<Preferencia>();
 
+    public byte[] PasswordHash { get; private set; }
+    public byte[] PasswordSalt { get; private set; }
+
     protected Usuario() { }
 
     public Usuario(int idUsuario, string nomeCompleto, int numeroCelular,
@@ -44,5 +47,12 @@ public partial class Usuario
         NumeroCelular = numeroCelular;
         Email = email;
         Preferencias = preferencias;
+    }
+
+    public void AlterarSenha(byte[] passwordHash, byte[] passwordSalt)
+    {
+        PasswordHash = passwordHash;
+        PasswordSalt = passwordSalt;
+
     }
 }

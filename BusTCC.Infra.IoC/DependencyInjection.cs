@@ -1,8 +1,10 @@
 ﻿using BusTCC.Application.Interfaces;
 using BusTCC.Application.Mappings;
 using BusTCC.Application.Services;
+using BusTCC.Domain.Account;
 using BusTCC.Domain.Infra.Data;
 using BusTCC.Domain.Interfaces;
+using BusTCC.Infra.Data.Identity;
 using BusTCC.Infra.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -69,6 +71,7 @@ namespace BusTCC.Infra.IoC
             services.AddScoped<IPontoService, PontoService>();
             services.AddScoped<IOnibusService, OnibusService>();
             services.AddScoped<IEquipamentoService, EquipamentoService>();
+            services.AddScoped<IAuthenticate, AuthenticateService>();
 
 
             return services;

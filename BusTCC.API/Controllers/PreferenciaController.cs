@@ -1,10 +1,12 @@
 ﻿using BusTCC.Application.DTOs;
 using BusTCC.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusTCC.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class PreferenciaController : Controller
     {
