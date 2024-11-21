@@ -1,8 +1,11 @@
-﻿using BusTCC.API.Models;
+﻿using AutoMapper;
+using BusTCC.API.Models;
 using BusTCC.Application.DTOs;
 using BusTCC.Application.Interfaces;
 using BusTCC.Domain.Account;
+using BusTCC.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.Versioning;
 
 namespace BusTCC.API.Controllers
 {
@@ -12,11 +15,15 @@ namespace BusTCC.API.Controllers
     {
         private readonly IUsuarioService _usuarioService;
         private readonly IAuthenticate _authenticateService;
+        private readonly IMapper _mapper;
+        private readonly IPreferenciaService _preferenciaService;
 
-        public UsuarioController(IUsuarioService usuarioService, IAuthenticate authenticateService)
+        public UsuarioController(IUsuarioService usuarioService, IAuthenticate authenticateService, IMapper mapper, IPreferenciaService preferenciaService)
         {
             _usuarioService = usuarioService;
             _authenticateService = authenticateService;
+            _mapper = mapper;
+            _preferenciaService = preferenciaService;
         }
 
         [HttpPost("register")]
@@ -39,9 +46,17 @@ namespace BusTCC.API.Controllers
             {
                 return BadRequest("Ocorreu um erro ao cadastrar.");
             }
+            PreferenciaDTO preferenciaDTO = new PreferenciaDTO()
+            {
+                Deficiencia = false,
+                Notificacao = false,
+                IdUsuario = usuario.IdUsuario,
+            };
+
+            await _preferenciaService.Incluir(preferenciaDTO);
 
             var token = _authenticateService.GenerateToken(usuario.IdUsuario, usuario.Email);
-            return new UserToken { Token = token };
+            return Ok("Usuário cadastrado com sucesso!");
         }
 
         [HttpPost("login")]
@@ -57,10 +72,17 @@ namespace BusTCC.API.Controllers
             }
 
             var usuario = await _authenticateService.GetUserByEmail(loginModel.Email);
+            var usuarioDTO = _mapper.Map<UsuarioDTO>(usuario);
+
+            var preferencia = await _preferenciaService.SelecionarAsync(usuario.IdUsuario);
+
+            usuarioDTO.Preferencia = preferencia;
+            
 
             var token = _authenticateService.GenerateToken(usuario.IdUsuario, usuario.Email);
+            
 
-            return new UserToken { Token = token };
+            return new UserToken {User = usuarioDTO, Token = token };
         }
 
         [HttpPut]

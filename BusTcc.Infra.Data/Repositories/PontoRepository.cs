@@ -46,9 +46,19 @@ namespace BusTCC.Infra.Data.Repositories
             return ponto;
         }
 
-        public async Task<Ponto> SelecionarAsync(int id)
+        public async Task<List<Ponto>> SelecionarAsync(List<Ponto> pontos)
         {
-            return await _context.Ponto.AsNoTracking().FirstOrDefaultAsync(x => x.IdPonto == id);
+            var origem = pontos[0].RuaAvenida;
+            var destino = pontos[1].RuaAvenida;
+
+            List<Ponto> pontoOrigem = await _context.Ponto.AsNoTracking().Where(x => x.RuaAvenida.ToUpper() == origem.ToUpper()).ToListAsync();
+            List<Ponto> pontoDestino = await _context.Ponto.AsNoTracking().Where(y => y.RuaAvenida.ToUpper() == destino.ToUpper()).ToListAsync();
+            List<Ponto> pontosAll = new List<Ponto>();
+
+            pontosAll.AddRange(pontoOrigem);
+            pontosAll.AddRange(pontoDestino);
+
+            return pontosAll;
         }
 
         public async Task<IEnumerable<Ponto>> SelecionarTodosAsync()

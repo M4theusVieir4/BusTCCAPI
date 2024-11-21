@@ -14,12 +14,12 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Usuario> builder)
         {            
-            builder.HasKey(e => e.IdUsuario).HasName("PK__Usuario__DE4431C5859EFF66");
+            builder.HasKey(e => e.IdUsuario).HasName("PK__Usuario__2B3DE7B8A0EE4196");
 
             builder.ToTable("Usuario");
 
             builder.Property(e => e.IdUsuario)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_Usuario");
             builder.Property(e => e.Email)
                 .HasMaxLength(30)
@@ -27,8 +27,7 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
             builder.Property(e => e.NomeCompleto)
                 .HasMaxLength(60)
                 .IsUnicode(false)
-                .HasColumnName("Nome_Completo");
-            builder.Property(e => e.NumeroCelular).HasColumnName("Numero_Celular");
+                .HasColumnName("Nome_Completo");            
         
         }
     }

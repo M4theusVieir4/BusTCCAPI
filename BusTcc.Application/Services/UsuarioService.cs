@@ -16,11 +16,13 @@ namespace BusTCC.Application.Services
     {
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly IMapper _mapper;
+        
 
         public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper)
         {
             _usuarioRepository = usuarioRepository;
             _mapper = mapper;
+         
         }
 
         public async Task<UsuarioDTO> Alterar(UsuarioDTO usuarioDTO)
@@ -50,6 +52,7 @@ namespace BusTCC.Application.Services
             }
 
             var usuarioIncluido = await _usuarioRepository.Incluir(usuario);
+            
             return _mapper.Map<UsuarioDTO>(usuarioIncluido);
         }
 

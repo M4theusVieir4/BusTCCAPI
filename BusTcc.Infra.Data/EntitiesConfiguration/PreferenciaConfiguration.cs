@@ -14,10 +14,10 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Preferencia> builder)
         {            
-            builder.HasKey(e => e.IdPreferencia).HasName("PK__Preferen__F071255A61B88047");
+            builder.HasKey(e => e.IdPreferencia).HasName("PK__Preferen__F071255AEC8610B5");
 
             builder.Property(e => e.IdPreferencia)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_Preferencia");
             builder.Property(e => e.Deficiencia)
                 .HasColumnName("Deficiencia");

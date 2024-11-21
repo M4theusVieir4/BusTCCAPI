@@ -42,10 +42,11 @@ namespace BusTCC.Application.Services
             return _mapper.Map<PontoDTO>(pontoIncluido);
         }
 
-        public async Task<PontoDTO> SelecionarAsync(int id)
+        public async Task<List<PontoDTO>> SelecionarAsync(List<PontoDTO> pontos)
         {
-            var ponto = await _pontoRepository.SelecionarAsync(id);
-            return _mapper.Map<PontoDTO>(ponto);
+            var pontosEntity = _mapper.Map<List<Ponto>>(pontos);
+            var ponto = await _pontoRepository.SelecionarAsync(pontosEntity);
+            return _mapper.Map<List<PontoDTO>>(ponto);
         }
 
         public async Task<IEnumerable<PontoDTO>> SelecionarTodosAsync()

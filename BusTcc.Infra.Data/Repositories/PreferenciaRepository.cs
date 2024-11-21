@@ -47,7 +47,7 @@ namespace BusTCC.Infra.Data.Repositories
 
         public async Task<Preferencia> SelecionarAsync(int id)
         {
-            return await _context.Preferencia.AsNoTracking().FirstOrDefaultAsync(x => x.IdPreferencia == id);
+            return await _context.Preferencia.AsNoTracking().FirstOrDefaultAsync(x => x.IdUsuario == id);
         }
 
         public async Task<IEnumerable<Preferencia>> SelecionarTodosAsync()
