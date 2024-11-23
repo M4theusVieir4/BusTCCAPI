@@ -20,24 +20,23 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
             builder.ToTable("Ponto");
 
             builder.Property(e => e.IdPonto)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_Ponto");
             builder.Property(e => e.Bairro)
                 .HasMaxLength(30)
                 .IsUnicode(false);
             builder.Property(e => e.Estado)
                 .HasMaxLength(30)
-                .IsUnicode(false);
-            builder.Property(e => e.IdRotas).HasColumnName("ID_Rotas");
+                .IsUnicode(false);            
             builder.Property(e => e.RuaAvenida)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Rua_Avenida");
 
-            builder.HasOne(d => d.IdRotasNavigation).WithMany(p => p.Pontos)
-                .HasForeignKey(d => d.IdRotas)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Ponto__ID_Rotas__71D1E811");            
+            builder.HasMany(o => o.RotasPontos)
+            .WithOne(or => or.Ponto)
+            .HasForeignKey(or => or.IdPonto)
+            .HasConstraintName("FK__RotasPont__ID_Po__5D95E53A");
         }
     }
 }

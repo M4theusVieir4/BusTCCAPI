@@ -8,50 +8,32 @@ namespace BusTCC.Domain.Entities;
 public partial class Rota
 {
     public int IdRotas { get; private set; }
-
-    public int IdPonto { get; private set; }
-
-    public int IdOnibus { get; private set; }
-
-    public virtual Onibus IdOnibusNavigation { get; set; } = null!;
-
-    public virtual Ponto IdPontoNavigation { get; set; } = null!;
-
-    public virtual ICollection<Onibus> Onibus { get; set; } = new List<Onibus>();
-
-    public virtual ICollection<Ponto> Pontos { get; set; } = new List<Ponto>();
+    public string Nome_Rota { get; private set; }
+    public virtual ICollection<OnibusRota> OnibusRotas { get; set; }
+    public virtual ICollection<RotasPontos> RotasPontos { get; set; }
 
     protected Rota() { }
 
 
-    public Rota(int idRotas, int idPonto, int idOnibus, Onibus idOnibusNavigation,
-        Ponto idPontoNavigation, ICollection<Onibus> onibus, ICollection<Ponto> pontos)
+    public Rota(int idRotas, string nomeRota, ICollection<OnibusRota> onibusRotas, ICollection<RotasPontos> rotasPontos)
     {
         DomainExceptionValidation.When(idRotas < 0, "O id da Rota deve ser positivo");
         IdRotas = idRotas;
 
-        ValidateDomain(idPonto, idOnibus, idOnibusNavigation,
-        idPontoNavigation, onibus, pontos);
+        ValidateDomain(nomeRota, onibusRotas, rotasPontos);
     }
 
-    public void Update(int idPonto, int idOnibus, Onibus idOnibusNavigation,
-        Ponto idPontoNavigation, ICollection<Onibus> onibus, ICollection<Ponto> pontos)
+    public void Update(string nomeRota, ICollection<OnibusRota> onibusRotas, ICollection<RotasPontos> rotasPontos)
     {
-        ValidateDomain(idPonto, idOnibus, idOnibusNavigation,
-        idPontoNavigation, onibus, pontos);
+        ValidateDomain(nomeRota, onibusRotas, rotasPontos);
     }
 
-    public void ValidateDomain(int idPonto, int idOnibus, Onibus idOnibusNavigation,
-        Ponto idPontoNavigation, ICollection<Onibus> onibus, ICollection<Ponto> pontos)
+    public void ValidateDomain(string nomeRota, ICollection<OnibusRota> onibusRotas, ICollection<RotasPontos> rotasPontos)
     {
-        DomainExceptionValidation.When(idPonto < 0, "O id do ponto de ônibus deve ser positivo");
-        DomainExceptionValidation.When(idOnibus < 0, "O id do ônibus deve ser positivo");
+        DomainExceptionValidation.When(nomeRota.Length > 0, "A rota precisa ser nomeada");        
 
-        IdPonto = idPonto;
-        IdOnibus = idOnibus;
-        IdOnibusNavigation = idOnibusNavigation;
-        IdPontoNavigation = idPontoNavigation;
-        Onibus = onibus;
-        Pontos = pontos;
+        Nome_Rota = nomeRota;
+        OnibusRotas = onibusRotas;
+        RotasPontos = rotasPontos;
     }
 }

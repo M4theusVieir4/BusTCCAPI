@@ -20,8 +20,7 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
 
                 builder.Property(e => e.IdEquipamento)
                     .ValueGeneratedNever()
-                    .HasColumnName("ID_Equipamento");
-                builder.Property(e => e.IdDados).HasColumnName("ID_Dados");
+                    .HasColumnName("ID_Equipamento");                
                 builder.Property(e => e.Latitude).HasColumnType("decimal(9, 6)");
                 builder.Property(e => e.Longitude).HasColumnType("decimal(9, 6)");
                 builder.Property(e => e.Modelo)
@@ -32,11 +31,12 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
                     .IsUnicode(false)
                     .HasColumnName("Numero_Serie");
 
-                builder.HasOne(d => d.IdDadosNavigation).WithMany(p => p.Equipamentos)
-                    .HasForeignKey(d => d.IdDados)
+                builder.HasMany(d => d.Comunicacaos)
+                    .WithOne(p => p.Equipamento)
+                    .HasForeignKey(d => d.IdEquipamento)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_equipamento_comunicacao");
-            
+                    .HasConstraintName("fk_comunicacao_equipamento");           
+
         }
     }
 }

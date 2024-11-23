@@ -20,16 +20,10 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
 
             builder.Property(e => e.IdDados)
                 .ValueGeneratedNever()
-                .HasColumnName("ID_Dados");
-            builder.Property(e => e.IdCatraca).HasColumnName("ID_Catraca");
-            builder.Property(e => e.IdEquipamento).HasColumnName("ID_Equipamento");
+                .HasColumnName("ID_Dados");            
+            builder.Property(e => e.IdEquipamento).HasColumnName("ID_Equipamento");            
 
-            builder.HasOne(d => d.IdCatracaNavigation).WithMany(p => p.Comunicacaos)
-                .HasForeignKey(d => d.IdCatraca)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_comunicacao_catraca");
-
-            builder.HasOne(d => d.IdEquipamentoNavigation).WithMany(p => p.Comunicacaos)
+            builder.HasOne(d => d.Equipamento).WithMany(p => p.Comunicacaos)
                 .HasForeignKey(d => d.IdEquipamento)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_comunicacao_equipamento");            

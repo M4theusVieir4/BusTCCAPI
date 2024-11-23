@@ -14,14 +14,13 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Onibus> builder)
         {            
-            builder.HasKey(e => e.IdOnibus).HasName("PK__Onibus__FEB5D74C84AF4425");
+            builder.HasKey(e => e.IdOnibus).HasName("PK__Onibus__FEB5D74C97507698");
 
             builder.Property(e => e.IdOnibus)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_Onibus");
             builder.Property(e => e.AnoFabricacao).HasColumnName("Ano_Fabricacao");
-            builder.Property(e => e.IdDados).HasColumnName("ID_Dados");
-            builder.Property(e => e.IdRotas).HasColumnName("ID_Rotas");
+            builder.Property(e => e.IdEquipamento).HasColumnName("ID_Equipamento");            
             builder.Property(e => e.Latitude).HasColumnType("decimal(9, 6)");
             builder.Property(e => e.Longitude).HasColumnType("decimal(9, 6)");
             builder.Property(e => e.Modelo)
@@ -34,15 +33,16 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
                 .HasColumnType("decimal(9, 6)")
                 .HasColumnName("Taxa_Onibus");
 
-            builder.HasOne(d => d.IdDadosNavigation).WithMany(p => p.Onibus)
-                .HasForeignKey(d => d.IdDados)
+            builder.HasOne(d => d.IdEquipamentoNavigation).WithOne(p => p.Onibus)
+                .HasForeignKey<Onibus>(d => d.IdEquipamento)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_onibus_comunicacao");
+                .HasConstraintName("FK_Onibus_Equipamento");
 
-            builder.HasOne(d => d.IdRotasNavigation).WithMany(p => p.Onibus)
-                .HasForeignKey(d => d.IdRotas)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_onibus_rotas");            
+            builder.HasMany(o => o.OnibusRotas)   
+            .WithOne(or => or.Onibus)         
+            .HasForeignKey(or => or.IdOnibus)  
+            .HasConstraintName("FK__OnibusRot__ID_On__58D1301D");
+            
         }
     }
 }

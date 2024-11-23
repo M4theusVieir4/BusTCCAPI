@@ -12,7 +12,7 @@ namespace BusTCC.Application.Interfaces
         Task<RotaDTO> Incluir(RotaDTO RotaDTO);
         Task<RotaDTO> Alterar(RotaDTO RotaDTO);
         Task<RotaDTO> Excluir(int id);
-        Task<RotaDTO> SelecionarAsync(int id);
+        Task<List<RotaDTO>> SelecionarAsync(int id);
         Task<IEnumerable<RotaDTO>> SelecionarTodosAsync();
     }
 }

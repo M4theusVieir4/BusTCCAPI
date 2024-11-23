@@ -53,7 +53,15 @@ namespace BusTCC.Infra.Data.Repositories
 
         public async Task<IEnumerable<Onibus>> SelecionarTodosAsync()
         {
-            return await _context.Onibus.ToListAsync();
+            var teste = await _context.Onibus
+                .Include(o => o.IdEquipamentoNavigation)
+                .ThenInclude(e => e.Comunicacaos)
+                .Include(o => o.OnibusRotas)
+                .ThenInclude(or => or.Rota)
+                .ThenInclude(r => r.RotasPontos)
+                .ThenInclude(rp => rp.Ponto)
+                .ToListAsync();
+            return teste;
         }
     }
 }

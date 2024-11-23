@@ -12,7 +12,7 @@ namespace BusTCC.Domain.Interfaces
         Task<Rota> Incluir(Rota Rota);
         Task<Rota> Alterar(Rota Rota);
         Task<Rota> Excluir(int id);
-        Task<Rota> SelecionarAsync(int id);
+        Task<List<Rota>> GetRotaDetails(int id);
         Task<IEnumerable<Rota>> SelecionarTodosAsync();
     }
 }

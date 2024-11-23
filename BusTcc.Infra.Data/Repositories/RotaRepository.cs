@@ -21,17 +21,17 @@ namespace BusTCC.Infra.Data.Repositories
         }
         public async Task<Rota> Alterar(Rota rota)
         {
-            _context.Rota.Update(rota);
+            _context.Rotas.Update(rota);
             await _context.SaveChangesAsync();
             return rota;
         }
 
         public async Task<Rota?> Excluir(int id)
         {
-            var rota = await _context.Rota.FindAsync(id);
+            var rota = await _context.Rotas.FindAsync(id);
             if (rota != null)
             {
-                _context.Rota.Remove(rota);
+                _context.Rotas.Remove(rota);
                 await _context.SaveChangesAsync();
                 return rota;
             }
@@ -41,19 +41,24 @@ namespace BusTCC.Infra.Data.Repositories
 
         public async Task<Rota> Incluir(Rota rota)
         {
-            _context.Rota.Add(rota);
+            _context.Rotas.Add(rota);
             await _context.SaveChangesAsync();
             return rota;
         }
 
-        public async Task<Rota> SelecionarAsync(int id)
+        public async Task<List<Rota>> GetRotaDetails(int id)
         {
-            return await _context.Rota.AsNoTracking().FirstOrDefaultAsync(x => x.IdRotas == id);
+            return await _context.Rotas
+                .Include(r => r.OnibusRotas)
+                .ThenInclude(or => or.Onibus)
+                .Include(r => r.RotasPontos)
+                .ThenInclude(rp => rp.Ponto)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Rota>> SelecionarTodosAsync()
         {
-            return await _context.Rota.ToListAsync();
+            return await _context.Rotas.ToListAsync();
         }
     }
 }

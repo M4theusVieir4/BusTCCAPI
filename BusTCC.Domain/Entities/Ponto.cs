@@ -7,9 +7,7 @@ namespace BusTCC.Domain.Entities;
 
 public partial class Ponto
 {
-    public int IdPonto { get; private set; }
-
-    public int IdRotas { get; private set; }
+    public int IdPonto { get; private set; }    
 
     public string RuaAvenida { get; private set; } = null!;
 
@@ -17,39 +15,33 @@ public partial class Ponto
 
     public string Estado { get; private set; } = null!;
 
-    public virtual Rota IdRotasNavigation { get; set; } = null!;
-
-    public virtual ICollection<Rota> Rota { get; set; } = new List<Rota>();
+    public virtual ICollection<RotasPontos> RotasPontos { get; set; }
 
     protected Ponto() { }
 
-    public Ponto(int idPonto, int idRotas, string ruaAvenida, string bairro,
-        string estado, Rota idRotasNavigation, ICollection<Rota> rota)
+    public Ponto(int idPonto, string ruaAvenida, string bairro,
+        string estado, ICollection<RotasPontos> rotasPontos)
     {
         DomainExceptionValidation.When(idPonto < 0, "O id do Ponto de ônibus deve ser positivo");
         IdPonto = idPonto;
 
-        ValidateDomain(idRotas, ruaAvenida, bairro,
-        estado, idRotasNavigation, rota);
-        
+        ValidateDomain(ruaAvenida, bairro,
+        estado, rotasPontos);         
     }
 
-    public void Update(int idRotas, string ruaAvenida, string bairro,
-        string estado, Rota idRotasNavigation, ICollection<Rota> rota)
+    public void Update(string ruaAvenida, string bairro,
+        string estado, ICollection<RotasPontos> rotasPontos)
     {
-        ValidateDomain(idRotas, ruaAvenida, bairro,
-        estado, idRotasNavigation, rota);
+        ValidateDomain(ruaAvenida, bairro,
+        estado, rotasPontos);
     }
 
-    public void ValidateDomain(int idRotas, string ruaAvenida, string bairro,
-        string estado, Rota idRotasNavigation, ICollection<Rota> rota)
-    {
-        DomainExceptionValidation.When(idRotas < 0, "O id da Rota de ônibus deve ser positivo");
-        IdRotas = idRotas;
+    public void ValidateDomain(string ruaAvenida, string bairro,
+        string estado, ICollection<RotasPontos> rotasPontos)
+    {       
         RuaAvenida = ruaAvenida;
         Bairro = bairro;
         Estado = estado;
-        IdRotasNavigation = idRotasNavigation;
-        Rota = rota;
+        RotasPontos = rotasPontos;
     }
 }

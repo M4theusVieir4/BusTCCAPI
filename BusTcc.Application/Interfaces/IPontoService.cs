@@ -12,7 +12,7 @@ namespace BusTCC.Application.Interfaces
         Task<PontoDTO> Incluir(PontoDTO pontoDTO);
         Task<PontoDTO> Alterar(PontoDTO pontoDTO);
         Task<PontoDTO> Excluir(int id);
-        Task<List<PontoDTO>> SelecionarAsync(List<PontoDTO> pontos);
+        Task<List<PontoDetailsDTO>> SelecionarAsync(List<PontoDTO> pontos);
         Task<IEnumerable<PontoDTO>> SelecionarTodosAsync();
     }
 }

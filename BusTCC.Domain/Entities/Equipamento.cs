@@ -7,9 +7,7 @@ namespace BusTCC.Domain.Entities;
 
 public partial class Equipamento
 {
-    public int IdEquipamento { get; private set; }
-
-    public int IdDados { get; private set; }
+    public int IdEquipamento { get; private set; }   
 
     public string NumeroSerie { get; private set; } = null!;
 
@@ -19,49 +17,47 @@ public partial class Equipamento
 
     public decimal Longitude { get; private set; }
 
-    public virtual ICollection<Catraca> Catracas { get; set; } = new List<Catraca>();
+    public virtual Catraca Catraca { get; set; }
 
-    public virtual ICollection<Comunicacao> Comunicacaos { get; set; } = new List<Comunicacao>();
+    public virtual Onibus Onibus { get; set; }
 
-    public virtual Comunicacao IdDadosNavigation { get; set; } = null!;
+    public virtual ICollection<Comunicacao> Comunicacaos { get; set; } = new List<Comunicacao>();    
 
     protected Equipamento() { }
-    public Equipamento(int idEquipamento, int idDados, string numeroSerie, string modelo,
-        decimal latitude, decimal longitude, ICollection<Catraca> catracas,
-        ICollection<Comunicacao> comunicacaos, Comunicacao idDadosNavigation)
+    public Equipamento(int idEquipamento, string numeroSerie, string modelo,
+        decimal latitude, decimal longitude, Catraca catraca, 
+        ICollection<Comunicacao> comunicacaos, Onibus onibus)
     {
         DomainExceptionValidation.When(idEquipamento < 0, "O id do equipamento precisa ser positivo");
         IdEquipamento = idEquipamento;
 
-        ValidateDomain(idDados, numeroSerie, modelo,
-        latitude, longitude, catracas,
-        comunicacaos, idDadosNavigation);
+        ValidateDomain(numeroSerie, modelo,
+        latitude, longitude, catraca, comunicacaos, onibus);
+        
     }
 
-    public void Update(int idDados, string numeroSerie, string modelo,
-        decimal latitude, decimal longitude, ICollection<Catraca> catracas,
-        ICollection<Comunicacao> comunicacaos, Comunicacao idDadosNavigation)
+    public void Update(string numeroSerie, string modelo,
+        decimal latitude, decimal longitude, Catraca catraca,
+        ICollection<Comunicacao> comunicacaos, Onibus onibus)
     {
-        ValidateDomain(idDados, numeroSerie, modelo,
-        latitude, longitude, catracas,
-        comunicacaos, idDadosNavigation);
+        ValidateDomain(numeroSerie, modelo,
+        latitude, longitude, catraca,
+        comunicacaos, onibus);
     }
 
-    public void ValidateDomain(int idDados, string numeroSerie, string modelo,
-        decimal latitude, decimal longitude, ICollection<Catraca> catracas,
-        ICollection<Comunicacao> comunicacaos, Comunicacao idDadosNavigation)
-    {
-        DomainExceptionValidation.When(idDados < 0, "O id da comunicação precisa ser positivo");
+    public void ValidateDomain(string numeroSerie, string modelo,
+        decimal latitude, decimal longitude, Catraca catraca,
+        ICollection<Comunicacao> comunicacaos, Onibus onibus)
+    {        
         DomainExceptionValidation.When(NumeroSerie.Length < 40, "O número de série deve possuir no máximo 40 caracteres");
         DomainExceptionValidation.When(Modelo.Length < 20, "O modelo deve possuir no máximo 20 caracteres");
-
-        IdDados = idDados;
+                
         NumeroSerie = numeroSerie;
         Modelo = modelo;
         Latitude = latitude;
         Longitude = longitude;
-        Catracas = catracas;
-        Comunicacaos = comunicacaos;
-        IdDadosNavigation = idDadosNavigation;
+        Catraca = catraca;
+        Comunicacaos = comunicacaos;        
+        Onibus = onibus;
     }
 }

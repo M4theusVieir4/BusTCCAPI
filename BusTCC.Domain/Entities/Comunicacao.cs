@@ -9,49 +9,37 @@ public partial class Comunicacao
 {
     public int IdDados { get; private set; }
 
-    public int IdEquipamento { get; private set; }
-
-    public int IdCatraca { get; private set; }
+    public int IdEquipamento { get; private set; }   
 
     public DateOnly Data { get; private set; }
 
-    public virtual ICollection<Equipamento> Equipamentos { get; set; } = new List<Equipamento>();
-
-    public virtual Catraca IdCatracaNavigation { get; set; } = null!;
-
-    public virtual Equipamento IdEquipamentoNavigation { get; set; } = null!;
-
-    public virtual ICollection<Onibus> Onibus { get; set; } = new List<Onibus>();
+    public virtual Equipamento Equipamento { get; set; }        
 
     protected Comunicacao() { }
-    public Comunicacao(int idDados, int idEquipamento, int idCatraca, DateOnly data, ICollection<Equipamento> equipamentos,
-        Catraca idCatracaNavigation, Equipamento idEquipamentoNavigation, ICollection<Onibus> onibus)
+    public Comunicacao(int idDados, int idEquipamento, int idCatraca, DateOnly data, Equipamento equipamento,
+        Catraca idCatracaNavigation)
     {
         DomainExceptionValidation.When(idDados < 0, "O Id da comunicação deve ser positivo");
         IdDados = idDados;
-        ValidateDomain(idEquipamento, idCatraca, data, equipamentos,
-        idCatracaNavigation, idEquipamentoNavigation, onibus);
+        ValidateDomain(idEquipamento, data, equipamento
+        );
     }
 
-    public void Update(int idEquipamento, int idCatraca, DateOnly data, ICollection<Equipamento> equipamentos,
-        Catraca idCatracaNavigation, Equipamento idEquipamentoNavigation, ICollection<Onibus> onibus)
+    public void Update(int idEquipamento, DateOnly data, Equipamento equipamento
+         )
     {
-        ValidateDomain(idEquipamento, idCatraca, data, equipamentos,
-        idCatracaNavigation, idEquipamentoNavigation, onibus);
+        ValidateDomain(idEquipamento, data, equipamento
+         );
     }
 
-    public void ValidateDomain(int idEquipamento, int idCatraca, DateOnly data, ICollection<Equipamento> equipamentos,
-        Catraca idCatracaNavigation, Equipamento idEquipamentoNavigation, ICollection<Onibus> onibus)
+    public void ValidateDomain(int idEquipamento, DateOnly data, Equipamento equipamento
+       )
     {
-        DomainExceptionValidation.When(idEquipamento < 0, "O Id do equipamento deve ser positivo");
-        DomainExceptionValidation.When(idCatraca < 0, "O Id da catraca deve ser positivo");
+        DomainExceptionValidation.When(idEquipamento < 0, "O Id do equipamento deve ser positivo");       
 
-        IdEquipamento = idEquipamento;
-        IdCatraca = idCatraca;
+        IdEquipamento = idEquipamento;        
         Data = data;
-        Equipamentos = equipamentos;
-        IdCatracaNavigation = idCatracaNavigation;
-        IdEquipamentoNavigation = idEquipamentoNavigation;
-        Onibus = onibus;
+        Equipamento = equipamento;                
+        
     }
 }

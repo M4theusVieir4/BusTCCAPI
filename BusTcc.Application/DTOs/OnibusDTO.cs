@@ -12,11 +12,8 @@ namespace BusTCC.Application.DTOs
         [Required(ErrorMessage = "O ID do ônibus é obrigatório.")]
         public int IdOnibus { get; set; }
 
-        [Required(ErrorMessage = "O ID dos dados é obrigatório.")]
-        public int IdDados { get; set; }
-
-        [Required(ErrorMessage = "O ID da rota é obrigatório.")]
-        public int IdRotas { get; set; }
+        [Required(ErrorMessage = "O ID do Equipamento é obrigatório.")]
+        public int IdEquipamento { get; set; }
 
         [Required(ErrorMessage = "O modelo do ônibus é obrigatório.")]
         [StringLength(100, ErrorMessage = "O modelo do ônibus deve ter no máximo 100 caracteres.")]

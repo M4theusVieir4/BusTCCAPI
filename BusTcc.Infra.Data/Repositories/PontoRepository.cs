@@ -46,13 +46,36 @@ namespace BusTCC.Infra.Data.Repositories
             return ponto;
         }
 
-        public async Task<List<Ponto>> SelecionarAsync(List<Ponto> pontos)
+        public async Task<List<Ponto>> SelecionarAsync(List<string> pontos, List<int> ordens)
         {
-            var origem = pontos[0].RuaAvenida;
-            var destino = pontos[1].RuaAvenida;
+            string origem = pontos[0];
+            int ordemOrigem = ordens[0];
+            string destino = pontos[1];
+            int ordemDestino = ordens[1];
+            
 
-            List<Ponto> pontoOrigem = await _context.Ponto.AsNoTracking().Where(x => x.RuaAvenida.ToUpper() == origem.ToUpper()).ToListAsync();
-            List<Ponto> pontoDestino = await _context.Ponto.AsNoTracking().Where(y => y.RuaAvenida.ToUpper() == destino.ToUpper()).ToListAsync();
+            List<Ponto> pontoOrigem = await _context.Ponto
+                                        .AsNoTracking()
+                                        .Where(x => x.RuaAvenida.ToUpper() == origem.ToUpper()) 
+                                        .Include(p => p.RotasPontos.Where(rp => rp.Ordem == ordemOrigem))                                        
+                                            .ThenInclude(rp => rp.Rota)  
+                                            .ThenInclude(r => r.OnibusRotas) 
+                                            .ThenInclude(or => or.Onibus)  
+                                        .ToListAsync();
+
+
+
+
+
+            List<Ponto> pontoDestino = await _context.Ponto
+                                          .AsNoTracking()
+                                          .Where(y => y.RuaAvenida.ToUpper() == destino.ToUpper())
+                                          .Include(p => p.RotasPontos.Where(rp => rp.Ordem == ordemDestino))
+                                                .ThenInclude(rp => rp.Rota)
+                                                .ThenInclude(r => r.OnibusRotas)
+                                                .ThenInclude(or => or.Onibus)
+                                          .ToListAsync();
+
             List<Ponto> pontosAll = new List<Ponto>();
 
             pontosAll.AddRange(pontoOrigem);

@@ -10,10 +10,7 @@ namespace BusTCC.Application.DTOs
     public class EquipamentoDTO
     {
         [Required(ErrorMessage = "O ID do equipamento é obrigatório.")]
-        public int IdEquipamento { get; set; }
-
-        [Required(ErrorMessage = "O ID dos dados é obrigatório.")]
-        public int IdDados { get; set; }
+        public int IdEquipamento { get; set; }        
 
         [Required(ErrorMessage = "O número de série é obrigatório.")]
         [StringLength(40, ErrorMessage = "O número de série deve possuir no máximo 40 caracteres.")]

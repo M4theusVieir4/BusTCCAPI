@@ -32,10 +32,10 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
             builder.Property(e => e.QuantidadeSaida)
                 .HasDefaultValueSql("(NULL)")
                 .HasColumnName("Quantidade_Saida");
-
-            builder.HasOne(d => d.IdEquipamentoNavigation).WithMany(p => p.Catracas)
-                .HasForeignKey(d => d.IdEquipamento)
-                .HasConstraintName("FK__Catraca__ID_Equi__7A672E12");            
+            builder.HasOne(d => d.IdEquipamentoNavigation).WithOne(p => p.Catraca)
+                .HasForeignKey<Catraca>(d => d.IdEquipamento)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Catraca__ID_Equi__7A672E12");
         }
     }
 }

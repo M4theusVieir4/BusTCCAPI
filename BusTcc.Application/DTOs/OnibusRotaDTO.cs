@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace BusTCC.Application.DTOs
 {
-    public class RotaDTO
+    public class OnibusRotaDTO
     {
+        [Required(ErrorMessage = "O ID do Ônibus é obrigatório.")]
+        public int IdOnibus { get; set; }
+
         [Required(ErrorMessage = "O ID da Rota é obrigatório.")]
         public int IdRotas { get; set; }
 
-        [Required(ErrorMessage = "O nome da rota é obrigatório.")]
-        public string Nome_Rota { get; set; }        
+        
     }
 }

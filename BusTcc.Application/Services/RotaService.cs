@@ -42,10 +42,10 @@ namespace BusTCC.Application.Services
             return _mapper.Map<RotaDTO>(rotaIncluido);
         }
 
-        public async Task<RotaDTO> SelecionarAsync(int id)
+        public async Task<List<RotaDTO>> SelecionarAsync(int id)
         {
-            var rota = await _rotaRepository.SelecionarAsync(id);
-            return _mapper.Map<RotaDTO>(rota);
+            var rota = await _rotaRepository.GetRotaDetails(id);
+            return _mapper.Map<List<RotaDTO>>(rota);
         }
 
         public async Task<IEnumerable<RotaDTO>> SelecionarTodosAsync()

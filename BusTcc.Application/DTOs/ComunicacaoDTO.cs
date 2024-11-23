@@ -13,10 +13,7 @@ namespace BusTCC.Application.DTOs
         public int IdDados { get; set; }
 
         [Required(ErrorMessage = "O ID do equipamento é obrigatório.")]
-        public int IdEquipamento { get; set; }
-
-        [Required(ErrorMessage = "O ID da catraca é obrigatório.")]
-        public int IdCatraca { get; set; }
+        public int IdEquipamento { get; set; }       
 
         [Required(ErrorMessage = "A data da comunicação é obrigatória.")]
         public DateOnly Data { get; set; }

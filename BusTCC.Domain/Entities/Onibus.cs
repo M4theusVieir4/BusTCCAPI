@@ -11,9 +11,7 @@ public partial class Onibus
 {
     public int IdOnibus { get; private set; }
 
-    public int IdDados { get; private set; }
-
-    public int IdRotas { get; private set; }
+    public int IdEquipamento { get; private set; }    
 
     public string Modelo { get; private set; } = null!;
 
@@ -27,49 +25,48 @@ public partial class Onibus
 
     public decimal Longitude { get; private set; }
 
-    public virtual Comunicacao IdDadosNavigation { get; set; } = null!;
+    public virtual Equipamento IdEquipamentoNavigation { get; set; } = null!;
+    public virtual ICollection<OnibusRota> OnibusRotas { get; set; }
 
-    public virtual Rota IdRotasNavigation { get; set; } = null!;
-
-    public virtual ICollection<Rota> Rota { get; set; } = new List<Rota>();
+   
 
     protected Onibus() { }
-    public Onibus(int idOnibus, int idDados, int idRotas, string modelo, 
+    public Onibus(int idOnibus, int idEquipamento, string modelo, 
         string placa, int anoFabricacao, decimal taxaOnibus, decimal latitude,
-        decimal longitude, Comunicacao idDadosNavigation, Rota idRotasNavigation, ICollection<Rota> rota)
+        decimal longitude, Equipamento idEquipamentoNavigation, Rota idRotasNavigation,
+        ICollection<Rota> rota, ICollection<OnibusRota> onibusRotas)
     {
         DomainExceptionValidation.When(idOnibus < 0, "O id do Ônibus deve ser positivo");
         IdOnibus = idOnibus;
 
-        ValidateDomain(idDados, idRotas, modelo,
+        ValidateDomain(idEquipamento, modelo,
         placa, anoFabricacao, taxaOnibus, latitude,
-        longitude, idDadosNavigation, idRotasNavigation, rota);
+        longitude, idEquipamentoNavigation, idRotasNavigation, rota, onibusRotas);
         
     }
 
-    public void Update(int idDados, int idRotas, string modelo,
+    public void Update(int idEquipamento, string modelo,
         string placa, int anoFabricacao, decimal taxaOnibus, decimal latitude,
-        decimal longitude, Comunicacao idDadosNavigation, Rota idRotasNavigation, ICollection<Rota> rota)
+        decimal longitude, Equipamento idEquipamentoNavigation, Rota idRotasNavigation,
+        ICollection<Rota> rota, ICollection<OnibusRota> onibusRotas)
     {
-        ValidateDomain(idDados, idRotas, modelo,
+        ValidateDomain(idEquipamento, modelo,
         placa, anoFabricacao, taxaOnibus, latitude,
-        longitude, idDadosNavigation, idRotasNavigation, rota);
+        longitude, idEquipamentoNavigation, idRotasNavigation, rota, onibusRotas);
     }
 
-    public void ValidateDomain(int idDados, int idRotas, string modelo,
+    public void ValidateDomain(int idEquipamento, string modelo,
         string placa, int anoFabricacao, decimal taxaOnibus, decimal latitude,
-        decimal longitude, Comunicacao idDadosNavigation, Rota idRotasNavigation, ICollection<Rota> rota)
-    {
-        IdDados = idDados;
-        IdRotas = idRotas;
+        decimal longitude, Equipamento idEquipamentoNavigation, Rota idRotasNavigation, ICollection<Rota> rota, ICollection<OnibusRota> onibusRotas)
+    {            
         Modelo = modelo;
         Placa = placa;
         AnoFabricacao = anoFabricacao;
         TaxaOnibus = taxaOnibus;
         Latitude = latitude;
         Longitude = longitude;
-        IdDadosNavigation = idDadosNavigation;
-        IdRotasNavigation = idRotasNavigation;
-        Rota = rota;
+        IdEquipamentoNavigation = idEquipamentoNavigation;
+        OnibusRotas = onibusRotas;
+        IdEquipamento = idEquipamento;
     }
 }

@@ -20,11 +20,12 @@ namespace BusTCC.API.Controllers
             _pontoService = pontoService;
         }
 
-        [HttpGet("rotas")]
-        public async Task<IActionResult> Selecionar(List<PontoDTO> pontos)
+        [HttpPost("pontos-detalhe")]
+        public async Task<IActionResult> Selecionar([FromBody] List<PontoDTO> pontos)
         {
             var rotasDTO = await _pontoService.SelecionarAsync(pontos);
             return Ok(rotasDTO);
         }
+        
     }
 }

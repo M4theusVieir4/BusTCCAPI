@@ -18,20 +18,18 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
             builder.HasKey(e => e.IdRotas).HasName("PK__Rotas__2EF76AF7EDB3594A");
 
             builder.Property(e => e.IdRotas)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID_Rotas");
-            builder.Property(e => e.IdOnibus).HasColumnName("ID_Onibus");
-            builder.Property(e => e.IdPonto).HasColumnName("ID_Ponto");
+            builder.Property(e => e.Nome_Rota).HasColumnName("Nome_Rota");
+            builder.HasMany(o => o.OnibusRotas)
+            .WithOne(or => or.Rota)
+            .HasForeignKey(or => or.IdRota)
+            .HasConstraintName("FK__OnibusRot__ID_Ro__59C55456");
+            builder.HasMany(o => o.RotasPontos)
+            .WithOne(or => or.Rota)
+            .HasForeignKey(or => or.IdRota)
+            .HasConstraintName("FK__RotasPont__ID_Ro__5CA1C101");
 
-            builder.HasOne(d => d.IdOnibusNavigation).WithMany(p => p.Rota)
-                .HasForeignKey(d => d.IdOnibus)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_rotas_onibus");
-
-            builder.HasOne(d => d.IdPontoNavigation).WithMany(p => p.Rota)
-                .HasForeignKey(d => d.IdPonto)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_rotas_ponto");            
         }
     }
 }
