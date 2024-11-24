@@ -38,7 +38,18 @@ namespace BusTCC.Application.Mappings
                     IdOnibus = or.Onibus.IdOnibus,
                     Modelo = or.Onibus.Modelo,
                     Placa = or.Onibus.Placa,
-                }).Distinct().ToList())).ReverseMap();
+                    TaxaOnibus = or.Onibus.TaxaOnibus,
+                }).Distinct().ToList()))
+            .ForMember(dest => dest.OnibusRotas, opt => opt.MapFrom(src =>
+        src.RotasPontos
+            .SelectMany(rp => rp.Rota.OnibusRotas)
+            .Select(or => new OnibusRotaDTO
+            {
+                IdRotas = or.Rota.IdRotas,                
+                IdOnibus = or.Onibus.IdOnibus,                
+            }).ToList()))
+            .ReverseMap();
+
 
         }
     }

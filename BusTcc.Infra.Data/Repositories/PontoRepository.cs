@@ -46,42 +46,55 @@ namespace BusTCC.Infra.Data.Repositories
             return ponto;
         }
 
-        public async Task<List<Ponto>> SelecionarAsync(List<string> pontos, List<int> ordens)
+        public async Task<List<Ponto>> SelecionarAsync(List<string> pontos, List<int?> ordens)
         {
-            string origem = pontos[0];
-            int ordemOrigem = ordens[0];
-            string destino = pontos[1];
-            int ordemDestino = ordens[1];
+            string origem = pontos[0].ToUpper();
+            string destino = pontos[1].ToUpper();
+            int? ordemOrigem = ordens[0];
+            int? ordemDestino = ordens[1];
+
+
+            var rotasComunsIds = await _context.Ponto
+                .Where(p => p.RuaAvenida.ToUpper() == origem.ToUpper() || p.RuaAvenida.ToUpper() == destino.ToUpper())
+                .SelectMany(p => p.RotasPontos)
+                .GroupBy(rp => rp.Rota.IdRotas)
+                .Where(group => group.Count() > 1)
+                .Select(group => group.Key)
+                .ToListAsync();
             
 
-            List<Ponto> pontoOrigem = await _context.Ponto
-                                        .AsNoTracking()
-                                        .Where(x => x.RuaAvenida.ToUpper() == origem.ToUpper()) 
-                                        .Include(p => p.RotasPontos.Where(rp => rp.Ordem == ordemOrigem))                                        
-                                            .ThenInclude(rp => rp.Rota)  
-                                            .ThenInclude(r => r.OnibusRotas) 
-                                            .ThenInclude(or => or.Onibus)  
-                                        .ToListAsync();
+            var pontosComRotasComuns = await _context.Ponto
+                .Where(p => p.RuaAvenida.ToUpper() == origem.ToUpper() || p.RuaAvenida.ToUpper() == destino.ToUpper())
+                .Include(p => p.RotasPontos.Where(rp => rotasComunsIds.Contains(rp.Rota.IdRotas)))
+                    .ThenInclude(rp => rp.Rota)
+                    .ThenInclude(r => r.OnibusRotas)
+                    .ThenInclude(or => or.Onibus)
+                .ToListAsync();
+            
+
+           
 
 
+            //var pontoOrigem = pontosData.Where(p => p.RuaAvenida.ToUpper() == origem).ToList();
+            //var pontoDestino = pontosData.Where(p => p.RuaAvenida.ToUpper() == destino).ToList();
 
 
+            //if (ordemOrigem.HasValue)
+            //{
+            //    pontoOrigem = pontoOrigem
+            //        .Where(p => p.RotasPontos.Any(rp => rp.Ordem == ordemOrigem))
+            //        .ToList();
+            //}
 
-            List<Ponto> pontoDestino = await _context.Ponto
-                                          .AsNoTracking()
-                                          .Where(y => y.RuaAvenida.ToUpper() == destino.ToUpper())
-                                          .Include(p => p.RotasPontos.Where(rp => rp.Ordem == ordemDestino))
-                                                .ThenInclude(rp => rp.Rota)
-                                                .ThenInclude(r => r.OnibusRotas)
-                                                .ThenInclude(or => or.Onibus)
-                                          .ToListAsync();
+            //if (ordemDestino.HasValue)
+            //{
+            //    pontoDestino = pontoDestino
+            //        .Where(p => p.RotasPontos.Any(rp => rp.Ordem == ordemDestino))
+            //        .ToList();
+            //}            
 
-            List<Ponto> pontosAll = new List<Ponto>();
 
-            pontosAll.AddRange(pontoOrigem);
-            pontosAll.AddRange(pontoDestino);
-
-            return pontosAll;
+            return pontosComRotasComuns;
         }
 
         public async Task<IEnumerable<Ponto>> SelecionarTodosAsync()

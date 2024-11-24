@@ -47,7 +47,7 @@ namespace BusTCC.Application.Services
             var pontoComOrdem = pontos.Select(p => new { Ponto = p.RuaAvenida, Ordem = p.Ordem }).ToList();
             var pontosEntity = _mapper.Map<List<Ponto>>(pontos);
             List<string> avenidas = pontos.Select(p => p.RuaAvenida).ToList();
-            List<int> ordens = pontos.Select(o => o.Ordem).ToList();
+            List<int?> ordens = pontos.Select(o => o.Ordem).ToList();
 
             var pontosEntityDetails = await _pontoRepository.SelecionarAsync(avenidas, ordens);
             var pontosDetailsDTO = _mapper.Map<List<PontoDetailsDTO>>(pontosEntityDetails);

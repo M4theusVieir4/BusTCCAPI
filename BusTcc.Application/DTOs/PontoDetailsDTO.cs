@@ -14,5 +14,6 @@ namespace BusTCC.Application.DTOs
         public string Estado { get; set; } = null!;        
         public List<RotaDTO> Rotas { get; set; } = new List<RotaDTO>();        
         public List<OnibusDTO> Onibus { get; set; } = new List<OnibusDTO>();
+        public List<OnibusRotaDTO> OnibusRotas { get; set; } = new List<OnibusRotaDTO>();
     }
 }
