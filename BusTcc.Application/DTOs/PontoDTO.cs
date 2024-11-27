@@ -12,7 +12,7 @@ namespace BusTCC.Application.DTOs
     {              
 
         [Required(ErrorMessage = "A rua ou avenida é obrigatória.")]
-        [StringLength(50, ErrorMessage = "A rua ou avenida deve ter no máximo 100 caracteres.")]
+        [StringLength(200, ErrorMessage = "A rua ou avenida deve ter no máximo 200 caracteres.")]
         public string RuaAvenida { get; set; } = null!;
                 
         [StringLength(30, ErrorMessage = "O bairro deve ter no máximo 100 caracteres.")]
@@ -23,5 +23,7 @@ namespace BusTCC.Application.DTOs
 
         [NotMapped]
         public int? Ordem { get; set; }
+        
+
     }
 }

@@ -26,6 +26,13 @@ namespace BusTCC.API.Controllers
             var rotasDTO = await _pontoService.SelecionarAsync(pontos);
             return Ok(rotasDTO);
         }
+
+        [HttpGet("onibus")]
+        public async Task<IActionResult> SelecionarOnibus(int idOnibus)
+        {
+            var onibusDTO = await _onibusService.SelecionarAsync(idOnibus);
+            return Ok(onibusDTO);
+        }
         
     }
 }

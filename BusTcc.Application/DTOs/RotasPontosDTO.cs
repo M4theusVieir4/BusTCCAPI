@@ -17,5 +17,7 @@ namespace BusTCC.Application.DTOs
 
         [Required(ErrorMessage = "A Ordem da Rota é obrigatório.")]
         public int Ordem { get; set; }
+
+        public PontoDTO Ponto { get; set; } = null!;
     }
 }

@@ -29,7 +29,7 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
                 .HasMaxLength(30)
                 .IsUnicode(false);            
             builder.Property(e => e.RuaAvenida)
-                .HasMaxLength(50)
+                .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasColumnName("Rua_Avenida");
 

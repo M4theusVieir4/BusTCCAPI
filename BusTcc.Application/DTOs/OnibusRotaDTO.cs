@@ -15,6 +15,8 @@ namespace BusTCC.Application.DTOs
         [Required(ErrorMessage = "O ID da Rota é obrigatório.")]
         public int IdRotas { get; set; }
 
-        
+        public RotaDTO Rota { get; set; } = null!;
+
+
     }
 }

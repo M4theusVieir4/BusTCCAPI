@@ -13,6 +13,8 @@ namespace BusTCC.Application.DTOs
         public int IdRotas { get; set; }
 
         [Required(ErrorMessage = "O nome da rota é obrigatório.")]
-        public string Nome_Rota { get; set; }        
+        public string Nome_Rota { get; set; }
+
+        public ICollection<RotasPontosDTO>? RotasPontos { get; set; } = new List<RotasPontosDTO>();
     }
 }

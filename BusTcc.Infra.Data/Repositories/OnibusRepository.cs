@@ -48,7 +48,13 @@ namespace BusTCC.Infra.Data.Repositories
 
         public async Task<Onibus> SelecionarAsync(int id)
         {
-            return await _context.Onibus.AsNoTracking().FirstOrDefaultAsync(x => x.IdOnibus == id);
+            return await _context.Onibus
+                .Where(o => o.IdOnibus == id)
+                .Include(o => o.OnibusRotas)
+                .ThenInclude(or => or.Rota)
+                .ThenInclude(r => r.RotasPontos)
+                .ThenInclude(rp => rp.Ponto)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Onibus>> SelecionarTodosAsync()
