@@ -13,9 +13,16 @@ namespace BusTCC.Application.DTOs
         public int IdDados { get; set; }
 
         [Required(ErrorMessage = "O ID do equipamento é obrigatório.")]
-        public int IdEquipamento { get; set; }       
+        public int IdEquipamento { get; set; }
+                
 
         [Required(ErrorMessage = "A data da comunicação é obrigatória.")]
-        public DateOnly Data { get; set; }
+        public DateTime Data { get; set; }
+
+        [Required(ErrorMessage = "A latitude é obrigatória.")]
+        public decimal Latitude { get; set; }
+
+        [Required(ErrorMessage = "A longitude é obrigatória.")]
+        public decimal Longitude { get; set; }
     }
 }

@@ -21,7 +21,9 @@ namespace BusTCC.Infra.Data.EntitiesConfiguration
             builder.Property(e => e.IdDados)
                 .ValueGeneratedNever()
                 .HasColumnName("ID_Dados");            
-            builder.Property(e => e.IdEquipamento).HasColumnName("ID_Equipamento");            
+            builder.Property(e => e.IdEquipamento).HasColumnName("ID_Equipamento");
+            builder.Property(e => e.Latitude).HasColumnType("decimal(9, 6)");
+            builder.Property(e => e.Longitude).HasColumnType("decimal(9, 6)");
 
             builder.HasOne(d => d.Equipamento).WithMany(p => p.Comunicacaos)
                 .HasForeignKey(d => d.IdEquipamento)

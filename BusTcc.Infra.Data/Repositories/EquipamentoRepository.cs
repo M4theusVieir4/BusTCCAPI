@@ -48,7 +48,13 @@ namespace BusTCC.Infra.Data.Repositories
 
         public async Task<Equipamento> SelecionarAsync(int id)
         {
-            return await _context.Equipamento.AsNoTracking().FirstOrDefaultAsync(x => x.IdEquipamento == id);
+            return await _context.Equipamento
+                .AsNoTracking()
+                .Include(e => e.Catraca)
+                .Include(e => e.Onibus)
+                .Include(e => e.Comunicacaos.OrderByDescending(c => c.Data))
+                .Where(e => e.IdEquipamento == id)                
+                .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Equipamento>> SelecionarTodosAsync()

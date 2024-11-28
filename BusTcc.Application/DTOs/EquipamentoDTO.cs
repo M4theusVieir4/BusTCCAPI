@@ -25,5 +25,10 @@ namespace BusTCC.Application.DTOs
 
         [Required(ErrorMessage = "A longitude é obrigatória.")]
         public decimal Longitude { get; set; }
+
+        public CatracaDTO? Catraca { get; set; }
+        public OnibusDTO? Onibus { get; set; }
+        public List<ComunicacaoDTO> Comunicacaos { get; set; }
+
     }
 }
